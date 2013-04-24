@@ -1,4 +1,4 @@
-fittrJS
+fittr.JS
 =======
 
 A jQuery plugin for the clever fitting of images within containers
