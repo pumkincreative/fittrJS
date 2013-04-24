@@ -5,7 +5,7 @@ A jQuery plugin for the clever fitting of images within containers
 
 <h2>Basic usage</h2>
 
-	<pre class="prettyprint">$('.fittr').fittr();</pre>
+<pre class="prettyprint">$('.fittr').fittr();</pre>
 
 <p>Resizes the target element(s) to fit the surrounding container.</p>
 
