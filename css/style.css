@@ -5,6 +5,7 @@ font-family:Georgia, 'Times New Roman', Times, serif;
 font-weight:lighter;
 font-size:14px;
 margin-top:60px;
+color:#4c0100;
 }
 
 #container {
@@ -146,9 +147,9 @@ color:#FFF;
 .white a:visited { color:#FFF; text-decoration:none; }
 .white a:hover { color:#FFF; text-decoration:underline; }
 
-a:link { color:#000; text-decoration:underline; }
-a:visited { color:#000; text-decoration:underline; }
-a:hover { color:#000; text-decoration:underline; }
+a:link { color:#4c0100; text-decoration:underline; }
+a:visited { color:#4c0100; text-decoration:underline; }
+a:hover {color:#4c0100; text-decoration:underline; }
 
 body {
 	font-family: Georgia, 'Times New Roman', Times, serif;
