@@ -7,7 +7,7 @@ A jQuery plugin for the clever fitting of images within containers
 
 <pre class="prettyprint">$('.fittr').fittr();</pre>
 
-<p>Resizes the target element(s) to fit the surrounding container.</p>
+<p>Resizes the target element(s) to fit the surrounding container. <a href="http://pumkin.co.uk/fittrjs" target="_blank">See it working here</a>.</p>
 
 <p>The only CSS requirement is that the container has a defined height and width, either fixed or fluid.</p>
 
