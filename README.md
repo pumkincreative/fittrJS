@@ -20,7 +20,7 @@ container
 	Options: Any jQuery selection.
 	Default: 'div'
 
-Choose the selector for the container you want the image to resize to. This has been added for cases where the image is wrapped in an inline-tag (e.g., <a>) before being wrapped in the tag you want the image to resize to.
+Choose the selector for the container you want the image to resize to. This has been added for cases where the image is wrapped in an inline-tag (e.g., 'a') before being wrapped in the tag you want the image to resize to.
 
 
 imgWidth & imgHeight
