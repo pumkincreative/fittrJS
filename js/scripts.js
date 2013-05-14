@@ -10,7 +10,8 @@ $('.gappy').fittr({
 		vertical:'middle',
 		horizontal:'center'
 	},
-	container: 'article'
+	container: 'article',
+	containerWidth:300
 });
 
 $('.filler').fittr({

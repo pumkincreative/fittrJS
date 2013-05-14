@@ -66,12 +66,12 @@
 		function resizeImage () {
 			
 			//Get image dimensions
-			var imgWidth = opts.imgWidth > 0 ? imgWidth : $this.width();
-			var imgHeight = opts.imgHeight > 0 ? imgHeight : $this.height();
+			var imgWidth = opts.imgWidth > 0 ? opts.imgWidth : $this.width();
+			var imgHeight = opts.imgHeight > 0 ? opts.imgHeight : $this.height();
 			
 			//Get container dimensions
-			var wid = opts.containerWidth > 0 ? containerWidth : $container.width();
-			var hei = opts.containerHeight > 0 ? containerHeight : $container.height();
+			var wid = opts.containerWidth > 0 ? opts.containerWidth : $container.width();
+			var hei = opts.containerHeight > 0 ? opts.containerHeight : $container.height();
 			
 			//Set image offset dependent on gap options
 			var xOffset = opts.gap.horizontal;
