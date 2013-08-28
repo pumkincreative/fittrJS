@@ -38,7 +38,8 @@
 		//Resizes image if container resizes
 		autoResize: true,
 		
-		forceDebounce: false
+		//force smart resize
+		forceDebounce: false,
 		
 	  };
 	  
@@ -65,9 +66,12 @@
 		
 		function resizeImage () {
 			
+			var naturalWidth = parseInt ($this.attr('width'));
+			var naturalHeight = parseInt ($this.attr('height'));
+			
 			//Get image dimensions
-			var imgWidth = opts.imgWidth > 0 ? opts.imgWidth : $this.width();
-			var imgHeight = opts.imgHeight > 0 ? opts.imgHeight : $this.height();
+			var imgWidth = opts.imgWidth > 0 ? opts.imgWidth : naturalWidth;
+			var imgHeight = opts.imgHeight > 0 ? opts.imgHeight : naturalHeight;
 			
 			//Get container dimensions
 			var wid = opts.containerWidth > 0 ? opts.containerWidth : $container.width();
@@ -80,23 +84,31 @@
 			hei -= yOffset;
 			
 			//Change image dimensions
-			$this.width(wid);
-			var scaleRatio = wid/imgWidth;
-			$this.height(Math.round(imgHeight*scaleRatio));
+			var newWidth = wid;
+			$this.width(newWidth);
+			
+			var scaleRatio = newWidth/imgWidth;
+			
+			var newHeight = Math.round(imgHeight*scaleRatio)
+			$this.height(newHeight);
 			
 			//If resize type is "FIT"
 			if (opts.resizeType == 'fit') {
-			  if ($this.height() > hei) {
-				scaleRatio = hei/imgHeight;
-				$this.height(hei);
-				$this.width(Math.round(imgWidth*scaleRatio));
+			  if (newHeight > hei) {
+					newHeight  = hei;
+					scaleRatio = newHeight/imgHeight;
+					
+					newWidth = Math.round(imgWidth*scaleRatio);
+					
+					$this.height(newHeight);
+					$this.width(newWidth);
 			  }
 			} 
 			
 			//If resize type is "FILL"
 			else {
 				$container.css('overflow','hidden');
-				if ($this.height() < hei) {
+				if (naturalHeight < hei) {
 				scaleRatio = hei/imgHeight;
 				$this.height(hei);
 				$this.width(Math.round(imgWidth*scaleRatio));
@@ -105,16 +117,16 @@
 			
 			//Alignment options
 			if (opts.align.horizontal == 'right')
-				$this.css('margin-left',$container.width() - $this.width());
+				$this.css('margin-left',wid - newWidth);
 			else if (opts.align.horizontal == 'center')
-				$this.css('margin-left',($container.width() - $this.width())/2);
+				$this.css('margin-left',(wid - newWidth)/2);
 			else
 				$this.css('margin-left',opts.align.horizontal);
 				
 			if (opts.align.vertical == 'bottom')
-				$this.css('margin-top',$container.height() - $this.height());
+				$this.css('margin-top',hei - newHeight);
 			else if (opts.align.vertical == 'middle')
-				$this.css('margin-top',($container.height() - $this.height())/2);
+				$this.css('margin-top',(hei - newHeight)/2);
 			else
 				$this.css('margin-top',opts.align.vertical);
 			
