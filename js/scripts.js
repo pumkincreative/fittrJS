@@ -10,17 +10,17 @@ $('.gappy').fittr({
 		vertical:'middle',
 		horizontal:'center'
 	},
-	container: 'article',
-	containerWidth:300
+	container: 'article'
 });
 
 $('.filler').fittr({
 	resizeType: 'fill',
-	gap: {
-		top: -20	
-	},
-	imgWidth: 820,
-    imgHeight: 615
+	align: {
+		vertical:'bottom',
+		horizontal:'left'
+	}
+	// imgWidth: 820,
+ //    imgHeight: 615
 });
 
 $('#top').click(function () {
