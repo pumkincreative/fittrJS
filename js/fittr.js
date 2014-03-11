@@ -1,12 +1,13 @@
+// 
+
 (function( $ ) {
   $.fn.fittr = function(options) {
   
   	//call debug function below
-	debug(this);
-	
+	debug(this);	
   
-	  //Default options
-	  var defaults = {
+	//Default options
+	var defaults = {
 		
 		//Choose the container
 		container: 'div',
@@ -14,7 +15,6 @@
 		//manually define image dimensions
 		imgWidth: 0,
 		imgHeight: 0,
-		
 		
 		//manually define container dimensions
 		containerWidth: 0,
@@ -41,23 +41,23 @@
 		//force smart resize
 		forceDebounce: false,
 		
-	  };
+	};
 	  
-	  // Extend our default options with those provided.
-	  var opts = $.extend(defaults, options);
+	// Extend our default options with those provided.
+	var opts = $.extend(defaults, options);
 	  
-	  //fill in missing options
-	  if (!opts.gap.vertical)
+	//fill in missing options
+	if (!opts.gap.vertical)
 	  	opts.gap.vertical = 0;
-	  if (!opts.gap.horizontal)
+	if (!opts.gap.horizontal)
 	  	opts.gap.horizontal = 0;
-	  if (!opts.align.vertical)
+	if (!opts.align.vertical)
 	  	opts.align.vertical = 'top';
-	  if (!opts.align.horizontal)
+	if (!opts.align.horizontal)
 	  	opts.align.horizontal = 'left';
 	  
-	  // The plugin implementation code goes here.
-	  ////////////////////////////////////////////
+	// The plugin implementation
+	////////////////////////////////////////////
 	return this.each(function() {
 
 		var $this = $(this);
@@ -67,30 +67,22 @@
 		
 		function resizeImage () {
 			
-			// var naturalWidth = parseInt ($this.attr('width'));
-			// var naturalHeight = parseInt ($this.attr('height'));
 			var naturalDim = {
-				width: parseInt($this.attr('width')),
-				height: parseInt($this.attr('height'))
+				width: parseInt($this.attr('width')) > 0 ? parseInt($this.attr('width')) : $this.width(),
+				height: parseInt($this.attr('height')) > 0 ? parseInt($this.attr('height')) : $this.height()
 			};
 			
 			//Get image dimensions
-			// var imgWidth = opts.imgWidth > 0 ? opts.imgWidth : naturalWidth;
-			// var imgHeight = opts.imgHeight > 0 ? opts.imgHeight : naturalHeight;
 			var imageDim = {
 				width: opts.imgWidth > 0 ? opts.imgWidth : naturalDim.width,
 				height: opts.imgHeight > 0 ? opts.imgHeight : naturalDim.height
 			};
 			
 			//Get container dimensions
-			// var container = opts.containerWidth > 0 ? opts.containerWidth : $container.width();
-			// var hei = opts.containerHeight > 0 ? opts.containerHeight : $container.height();
-			
-			var containerDim = originalContainerDim = {
+			var containerDim = {
 				width: opts.containerWidth > 0 ? opts.containerWidth : $container.width(),
 				height: opts.containerHeight > 0 ? opts.containerHeight : $container.height()
 			}
-
 
 			//Set image offset dependent on gap options
 			var offset = {
@@ -98,24 +90,22 @@
 				y: opts.gap.vertical
 			}
 			
-			if (offset.x > 0)
-				containerDim.width -= offset.x;
-			if (offset.y > 0)
-				containerDim.height -= offset.y;
-			
+			var containerDimAdjusted = {
+				width: containerDim.width-offset.x,
+				height: containerDim.height-offset.y
+			}
+
 			
 			// Get ratio of image and container
 			var imageRatio = imageDim.width / imageDim.height;
-			var containerRatio = containerDim.width / containerDim.height;
-			
-
-			
+			var containerRatio = containerDimAdjusted.width / containerDimAdjusted.height;
+				
 			//If resize type is "FIT"
 			if (opts.resizeType == 'fit') {
 				var imageCSS = {
-					width: containerDim.height * imageRatio >= containerDim.width ? containerDim.width : (containerDim.height * imageRatio),
-					height: containerDim.height * imageRatio >= containerDim.width ? containerDim.width / imageRatio : containerDim.height,
-					marginLeft:0,
+					width: containerDimAdjusted.height * imageRatio >= containerDimAdjusted.width ? containerDimAdjusted.width : (containerDimAdjusted.height * imageRatio),
+					height: containerDimAdjusted.height * imageRatio >= containerDimAdjusted.width ? containerDimAdjusted.width / imageRatio : containerDimAdjusted.height,
+					marginLeft: 0,
 					marginTop: 0
 				};
 			} 
@@ -125,8 +115,8 @@
 				$container.css('overflow','hidden');
 				
 				var imageCSS = {
-					width: containerRatio <= imageRatio ? containerDim.height * imageRatio : containerDim.width,
-					height: containerRatio <= imageRatio ? containerDim.height : containerDim.width / imageRatio,
+					width: containerRatio <= imageRatio ? containerDimAdjusted.height * imageRatio : containerDimAdjusted.width,
+					height: containerRatio <= imageRatio ? containerDimAdjusted.height : containerDimAdjusted.width / imageRatio,
 					marginLeft: 0,
 					marginTop: 0
 				};	
@@ -134,14 +124,14 @@
 			
 			// Alignment options
 			if (opts.align.horizontal == 'right')
-				imageCSS.marginLeft = originalContainerDim.width - imageCSS.width;
+				imageCSS.marginLeft = containerDim.width - imageCSS.width;
 			else if (opts.align.horizontal == 'center')
-				imageCSS.marginLeft = (originalContainerDim.width - imageCSS.width) / 2;
-				
+				imageCSS.marginLeft = (containerDim.width - imageCSS.width) / 2;
+			
 			if (opts.align.vertical == 'bottom')
-				imageCSS.marginTop = originalContainerDim.height - imageCSS.height;
+				imageCSS.marginTop = containerDim.height - imageCSS.height;
 			else if (opts.align.vertical == 'middle')
-				imageCSS.marginTop = (originalContainerDim.height - imageCSS.height) / 2;
+				imageCSS.marginTop = (containerDim.height - imageCSS.height) / 2;
 
 
 			$this.css(imageCSS);
