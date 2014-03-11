@@ -86,7 +86,7 @@
 			// var container = opts.containerWidth > 0 ? opts.containerWidth : $container.width();
 			// var hei = opts.containerHeight > 0 ? opts.containerHeight : $container.height();
 			
-			var containerDim = {
+			var containerDim = originalContainerDim = {
 				width: opts.containerWidth > 0 ? opts.containerWidth : $container.width(),
 				height: opts.containerHeight > 0 ? opts.containerHeight : $container.height()
 			}
@@ -103,14 +103,7 @@
 			if (offset.y > 0)
 				containerDim.height -= offset.y;
 			
-			var originalContainerDim = {
-				width: opts.containerWidth > 0 ? opts.containerWidth : $container.width(),
-				height: opts.containerHeight > 0 ? opts.containerHeight : $container.height()
-			}
-
 			
-			
-
 			// Get ratio of image and container
 			var imageRatio = imageDim.width / imageDim.height;
 			var containerRatio = containerDim.width / containerDim.height;
