@@ -151,10 +151,6 @@
 				imageCSS.marginTop = (originalContainerDim.height - imageCSS.height) / 2;
 
 
-			console.log(originalContainerDim.width);
-			console.log(containerDim.width);
-			
-
 			$this.css(imageCSS);
 			
 			counter++;
@@ -175,8 +171,6 @@
 	  //Debug function
 	  function debug($obj) {
 		if (window.console && window.console.log) {
-		  //console.log( stuff )
-		  //console.log(width)
 		}
 	  };
   
