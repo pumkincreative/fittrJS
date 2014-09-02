@@ -4,7 +4,7 @@
   $.fn.fittr = function(options) {
   
   	//call debug function below
-	debug(this);	
+	// debug(this);	
   
 	//Default options
 	var defaults = {
@@ -47,14 +47,18 @@
 	var opts = $.extend(defaults, options);
 	  
 	//fill in missing options
-	if (!opts.gap.vertical)
+	if (!opts.gap.vertical) {
 	  	opts.gap.vertical = 0;
-	if (!opts.gap.horizontal)
+	}
+	if (!opts.gap.horizontal) {
 	  	opts.gap.horizontal = 0;
-	if (!opts.align.vertical)
+	}
+	if (!opts.align.vertical){
 	  	opts.align.vertical = 'top';
-	if (!opts.align.horizontal)
+	}
+	if (!opts.align.horizontal){
 	  	opts.align.horizontal = 'left';
+	}
 	  
 	// The plugin implementation
 	////////////////////////////////////////////
@@ -82,27 +86,28 @@
 			var containerDim = {
 				width: opts.containerWidth > 0 ? opts.containerWidth : $container.width(),
 				height: opts.containerHeight > 0 ? opts.containerHeight : $container.height()
-			}
+			};
 
 			//Set image offset dependent on gap options
 			var offset = {
 				x: opts.gap.horizontal,
 				y: opts.gap.vertical
-			}
+			};
 			
 			var containerDimAdjusted = {
 				width: containerDim.width-offset.x,
 				height: containerDim.height-offset.y
-			}
+			};
 
 			
 			// Get ratio of image and container
 			var imageRatio = imageDim.width / imageDim.height;
 			var containerRatio = containerDimAdjusted.width / containerDimAdjusted.height;
-				
+			var imageCSS;
+
 			//If resize type is "FIT"
-			if (opts.resizeType == 'fit') {
-				var imageCSS = {
+			if (opts.resizeType === 'fit') {
+				imageCSS = {
 					width: containerDimAdjusted.height * imageRatio >= containerDimAdjusted.width ? containerDimAdjusted.width : (containerDimAdjusted.height * imageRatio),
 					height: containerDimAdjusted.height * imageRatio >= containerDimAdjusted.width ? containerDimAdjusted.width / imageRatio : containerDimAdjusted.height,
 					marginLeft: 0,
@@ -114,7 +119,7 @@
 			else {
 				$container.css('overflow','hidden');
 				
-				var imageCSS = {
+				imageCSS = {
 					width: containerRatio <= imageRatio ? containerDimAdjusted.height * imageRatio : containerDimAdjusted.width,
 					height: containerRatio <= imageRatio ? containerDimAdjusted.height : containerDimAdjusted.width / imageRatio,
 					marginLeft: 0,
@@ -123,15 +128,19 @@
 			}
 			
 			// Alignment options
-			if (opts.align.horizontal == 'right')
+			if (opts.align.horizontal === 'right'){
 				imageCSS.marginLeft = containerDim.width - imageCSS.width;
-			else if (opts.align.horizontal == 'center')
+			}
+			else if (opts.align.horizontal === 'center'){
 				imageCSS.marginLeft = (containerDim.width - imageCSS.width) / 2;
+			}
 			
-			if (opts.align.vertical == 'bottom')
+			if (opts.align.vertical === 'bottom') {
 				imageCSS.marginTop = containerDim.height - imageCSS.height;
-			else if (opts.align.vertical == 'middle')
+			}
+			else if (opts.align.vertical === 'middle') {
 				imageCSS.marginTop = (containerDim.height - imageCSS.height) / 2;
+			}
 
 
 			$this.css(imageCSS);
@@ -141,21 +150,23 @@
 		}//End of resize function
 		resizeImage ();
 		
-		if (opts.autoResize == true) {
-			if (counter > 10 || opts.forceDebounce == true)
-				$(window).smartresize(resizeImage)
-			else
-				$(window).resize(resizeImage)
+		if (opts.autoResize === true) {
+			if (counter > 10 || opts.forceDebounce === true) {
+				$(window).smartresize(resizeImage);
+			}
+			else{
+				$(window).resize(resizeImage);
+			}
 		}
 	});
 	  
   };
 	    
 	  //Debug function
-	  function debug($obj) {
-		if (window.console && window.console.log) {
-		}
-	  };
+	 //  function debug($obj) {
+		// if (window.console && window.console.log) {
+		// }
+	 //  }
   
 })( jQuery );
 
@@ -181,7 +192,7 @@
 
           timeout = setTimeout(delayed, threshold || 100);
       };
-  }
+  };
   // smartresize 
   jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
